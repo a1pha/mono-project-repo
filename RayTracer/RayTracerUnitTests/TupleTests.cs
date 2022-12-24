@@ -198,62 +198,97 @@ public class TupleTests
         Assert.IsTrue(Tuple.AreEqual(actual*0.5, expected));
     }
 
-    [Test] public void ScalarDivision()
+    [Test] 
+    public void ScalarDivision()
     {
         Tuple actual = new Tuple(1, -2, -3, -4);
         Tuple expected = new Tuple(0.5, -1, -1.5, -2);
         Assert.IsTrue(Tuple.AreEqual(actual/2, expected));
     }
     
-    [Test] public void Magnitude1()
+    [Test] 
+    public void Magnitude1()
     {
         Tuple i = Tuple.vector(1,0,0);
         Assert.AreEqual(1, i.Magnitude());
     }
     
-    [Test] public void Magnitude2()
+    [Test] 
+    public void Magnitude2()
     {
         Tuple j = Tuple.vector(0,1,0);
         Assert.AreEqual(1, j.Magnitude());
     }
     
-    [Test] public void Magnitude3()
+    [Test] 
+    public void Magnitude3()
     {
         Tuple k = Tuple.vector(0,0,1);
         Assert.AreEqual(1, k.Magnitude());
     }
     
-    [Test] public void Magnitude4()
+    [Test] 
+    public void Magnitude4()
     {
         Tuple pos = Tuple.vector(1,2,3);
         Assert.AreEqual(Double.Sqrt(14), pos.Magnitude());
     }
     
-    [Test] public void Magnitude5()
+    [Test] 
+    public void Magnitude5()
     {
         Tuple neg = Tuple.vector(-1,-2,-3);
         Assert.AreEqual(Double.Sqrt(14), neg.Magnitude());
     }
     
-    [Test] public void Normalize1()
+    [Test] 
+    public void Normalize1()
     {
         Tuple orig = Tuple.vector(4,0,0);
         Tuple norm = Tuple.vector(1,0,0);
         Assert.IsTrue(Tuple.AreEqual(norm, orig.Normalize()));
     }
     
-    [Test] public void Normalize2()
+    [Test] 
+    public void Normalize2()
     {
         Tuple orig = Tuple.vector(1,2,3);
         Tuple norm = Tuple.vector(1.0/Double.Sqrt(14),2.0/Double.Sqrt(14),3/Double.Sqrt(14));
         Assert.IsTrue(Tuple.AreEqual(norm, orig.Normalize()));
     }
     
-    [Test] public void Magnitude6()
+    [Test] 
+    public void Magnitude6()
     {
         Tuple orig = Tuple.vector(1,2,3);
         Tuple norm = orig.Normalize();
         Assert.AreEqual(1, norm.Magnitude());
+    }
+    
+    [Test] 
+    public void DotProduct()
+    {
+        Tuple a = Tuple.vector(1,2,3);
+        Tuple b = Tuple.vector(2,3,4);
+        Assert.AreEqual(20, Tuple.DotProduct(a, b));
+    }
+    
+    [Test] 
+    public void CrossProduct1()
+    {
+        Tuple a = Tuple.vector(1,2,3);
+        Tuple b = Tuple.vector(2,3,4);
+        Tuple res = Tuple.vector(-1, 2, -1);
+        Assert.IsTrue(Tuple.AreEqual(Tuple.CrossProduct(a, b), res));
+    }
+    
+    [Test] 
+    public void CrossProduct2()
+    {
+        Tuple a = Tuple.vector(1,2,3);
+        Tuple b = Tuple.vector(2,3,4);
+        Tuple res = Tuple.vector(1, -2, 1);
+        Assert.IsTrue(Tuple.AreEqual(Tuple.CrossProduct(b, a), res));
     }
 
 }
