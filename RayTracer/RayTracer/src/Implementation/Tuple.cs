@@ -35,4 +35,15 @@ public class Tuple
         return new Tuple(x, y, z, 0.0);
     }
 
+   private static bool CompareDoubleEpsilon(double a, double b, double epsilon)
+    {
+        return Math.Abs(a - b) < epsilon;
+    } 
+   public static bool AreEqual(Tuple a, Tuple b, double epsilon = 0.000001)
+   {
+       return CompareDoubleEpsilon(a.X, b.X, epsilon) && CompareDoubleEpsilon(a.Y, b.Y, epsilon)
+                                                      && CompareDoubleEpsilon(a.Z, b.Z, epsilon)
+                                                      && a.W == b.W;
+   }
+
 }
