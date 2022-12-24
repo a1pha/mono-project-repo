@@ -164,5 +164,45 @@ public class TupleTests
         Assert.IsTrue(Tuple.AreEqual(diff, expected));
     }
     
+    [Test]
+    public void TupleSubtractFromZero()
+    {
+        Tuple zero = Tuple.vector(0, 0, 0);
+        Tuple tup2 = Tuple.vector(5, -6, 7);
+        Tuple diff = zero - tup2;
+        Tuple expected = Tuple.vector(-5, 6, -7);
+        Assert.IsTrue(Tuple.AreEqual(diff, expected));
+    }
+    
+    [Test]
+    public void NegatingTuple()
+    {
+        Tuple actual = new Tuple(-1, 2, -3, 4);
+        Tuple expected = new Tuple(1, -2, 3, -4);
+        Assert.IsTrue(Tuple.AreEqual(-actual, expected));
+    }
+    
+    [Test]
+    public void ScalarMultiplication1()
+    {
+        Tuple actual = new Tuple(-1, 2, -3, 4);
+        Tuple expected = new Tuple(-2, 4, -6, 8);
+        Assert.IsTrue(Tuple.AreEqual(actual*2, expected));
+    }
+    
+    [Test]
+    public void ScalarMultiplication2()
+    {
+        Tuple actual = new Tuple(-1, 2, -3, 4);
+        Tuple expected = new Tuple(-0.5, 1.0, -1.5, 2.0);
+        Assert.IsTrue(Tuple.AreEqual(actual*0.5, expected));
+    }
+
+    [Test] public void ScalarDivision()
+    {
+        Tuple actual = new Tuple(1, -2, -3, -4);
+        Tuple expected = new Tuple(0.5, -1, -1.5, -2);
+        Assert.IsTrue(Tuple.AreEqual(actual/2, expected));
+    }
     
 }
