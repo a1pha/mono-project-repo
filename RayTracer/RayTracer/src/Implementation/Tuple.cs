@@ -36,14 +36,16 @@ public class Tuple
     }
 
    private static bool CompareDoubleEpsilon(double a, double b, double epsilon)
-    {
-        return Math.Abs(a - b) < epsilon;
-    } 
-   public static bool AreEqual(Tuple a, Tuple b, double epsilon = 0.000001)
-   {
-       return CompareDoubleEpsilon(a.X, b.X, epsilon) && CompareDoubleEpsilon(a.Y, b.Y, epsilon)
-                                                      && CompareDoubleEpsilon(a.Z, b.Z, epsilon)
+       => Math.Abs(a - b) < epsilon;
+    
+   public static bool AreEqual(Tuple a, Tuple b, double epsilon = 0.000001) 
+       => CompareDoubleEpsilon(a.X, b.X, epsilon) && CompareDoubleEpsilon(a.Y, b.Y, epsilon)
+                                             && CompareDoubleEpsilon(a.Z, b.Z, epsilon)
                                                       && a.W == b.W;
-   }
-
+   
+   public static Tuple operator +(Tuple a, Tuple b)
+       => new Tuple(a.X + b.X, a.Y + b.Y, a.Z + b.Z, (a.W + b.W)%2);
+   
+   public static Tuple operator -(Tuple a, Tuple b)
+       => new Tuple(a.X - b.X, a.Y - b.Y, a.Z - b.Z, double.Abs(a.W - b.W));
 }

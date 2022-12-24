@@ -113,4 +113,56 @@ public class TupleTests
         Tuple tup2 = new Tuple(1, 5, 3, 1);
         Assert.IsFalse(Tuple.AreEqual(tup1, tup2));
     }
+
+    [Test]
+    public void TupleAdditionBasic1()
+    {
+        Tuple tup1 = new Tuple(1, 2, 3, 1);
+        Tuple tup2 = new Tuple(3, 2, 1, 0);
+        Tuple sum = tup1 + tup2;
+        Tuple expected = new Tuple(4, 4, 4, 1);
+        Assert.IsTrue(Tuple.AreEqual(sum, expected));
+    }
+    
+    [Test]
+    public void TupleAdditionBasic2()
+    {
+        Tuple tup1 = new Tuple(1, 2, 3, 0);
+        Tuple tup2 = new Tuple(3, 2, 1, 0);
+        Tuple sum = tup1 + tup2;
+        Tuple expected = new Tuple(4, 4, 4, 0);
+        Assert.IsTrue(Tuple.AreEqual(sum, expected));
+    }
+    
+    [Test]
+    public void TupleSubtractionBasic1()
+    {
+        Tuple tup1 = Tuple.point(3, 2, 1);
+        Tuple tup2 = Tuple.point(5, 6, 7);
+        Tuple diff = tup1 - tup2;
+        Tuple expected = Tuple.vector(-2, -4, -6);
+        Assert.IsTrue(Tuple.AreEqual(diff, expected));
+    }
+    
+    [Test]
+    public void TupleSubtractionBasic2()
+    {
+        Tuple tup1 = Tuple.point(3, 2, 1);
+        Tuple tup2 = Tuple.vector(5, 6, 7);
+        Tuple diff = tup1 - tup2;
+        Tuple expected = Tuple.point(-2, -4, -6);
+        Assert.IsTrue(Tuple.AreEqual(diff, expected));
+    }
+    
+    [Test]
+    public void TupleSubtractionBasic3()
+    {
+        Tuple tup1 = Tuple.vector(3, 2, 1);
+        Tuple tup2 = Tuple.vector(5, 6, 7);
+        Tuple diff = tup1 - tup2;
+        Tuple expected = Tuple.vector(-2, -4, -6);
+        Assert.IsTrue(Tuple.AreEqual(diff, expected));
+    }
+    
+    
 }
