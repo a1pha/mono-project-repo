@@ -58,4 +58,15 @@ public class Tuple
    
    public static Tuple operator /(Tuple a, double b)
        => new Tuple(a.X/b, a.Y/b, a.Z/b, a.W/b);
+
+   public double Magnitude()
+   {
+       return double.Sqrt(X * X + Y * Y + Z * Z + W * W);
+   }
+   
+   public Tuple Normalize()
+   {
+       double mag = this.Magnitude();
+       return new Tuple(X/mag, Y/mag, Z/mag, W/mag);
+   }
 }
