@@ -7,30 +7,12 @@ namespace RayTracerUnitTests;
 public class TupleTests
 {
     [Test]
-    public void GetX()
+    public void GetXYZW()
     {
         Tuple tup = new Tuple(1, 2, 3, 1);
         Assert.AreEqual(1, tup.X);
-    }
-    
-    [Test]
-    public void GetY()
-    {
-        Tuple tup = new Tuple(1, 2, 3, 1);
         Assert.AreEqual(2, tup.Y);
-    }
-    
-    [Test]
-    public void GetZ()
-    {
-        Tuple tup = new Tuple(1, 2, 3, 1);
         Assert.AreEqual(3, tup.Z);
-    }
-    
-    [Test]
-    public void GetW()
-    {
-        Tuple tup = new Tuple(1, 2, 3, 1);
         Assert.AreEqual(1, tup.W);
     }
     

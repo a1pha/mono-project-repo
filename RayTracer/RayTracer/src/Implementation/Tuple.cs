@@ -30,7 +30,7 @@ public class Tuple : IEquatable<Tuple>
 
 
     private static bool CompareDoubleEpsilon(double a, double b)
-        => Math.Abs(a - b) < double.Epsilon ;
+        => Math.Abs(a - b) < 1e-9 ;
 
     public bool Equals(Tuple other)
     {
