@@ -12,16 +12,16 @@ public class ColorTests
     {
         Color col = new Color(0, 0, 0);
         Tuple tup = new Tuple(0, 0, 0, 0);
-        Assert.AreEqual(tup, col);
+        Assert.That(tup, Is.EqualTo(col));
     }
 
     [Test]
     public void GetRGB()
     {
         Color col = new Color(0.1, 0.2, 0.3);
-        Assert.AreEqual(col.Red, 0.1);
-        Assert.AreEqual(col.Green, 0.2);
-        Assert.AreEqual(col.Blue, 0.3);
+        Assert.That(col.Red, Is.EqualTo(0.1));
+        Assert.That(col.Green, Is.EqualTo(0.2));
+        Assert.That(col.Blue, Is.EqualTo(0.3));
     }
 
     [Test]
@@ -30,7 +30,7 @@ public class ColorTests
         Color col1 = new Color(0.9, 0.6, 0.75);
         Color col2 = new Color(0.7, 0.1, 0.25);
         Color exp = new Color(1.6, 0.7, 1.0);
-        Assert.AreEqual(exp, col1+col2);
+        Assert.That(exp, Is.EqualTo(col1+col2));
     }
     
     [Test]
@@ -39,7 +39,7 @@ public class ColorTests
         Color col1 = new Color(0.6, 0.6, 0.75);
         Color col2 = new Color(0.1, 0.1, 0.25);
         Color exp = new Color(0.5, 0.5, 0.5);
-        Assert.AreEqual(exp, col1-col2);
+        Assert.That(exp, Is.EqualTo(col1-col2));
     }
     
     [Test]
@@ -47,7 +47,7 @@ public class ColorTests
     {
         Color col = new Color(0.1, 0.2, 0.3);
         Color exp = new Color(0.3, 0.6, 0.9);
-        Assert.AreEqual(exp, 3*col);
+        Assert.That(exp, Is.EqualTo(3*col));
     }
     
     [Test]
@@ -56,7 +56,7 @@ public class ColorTests
         Color col1 = new Color(0.1, 0.2, 0.3);
         Color col2 = new Color(0.3, 0.6, 0.9);
         Color exp = new Color(0.03, 0.12, 0.27);
-        Assert.AreEqual(exp, col1*col2);
+        Assert.That(exp, Is.EqualTo(col1*col2));
     }
     
 }
