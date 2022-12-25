@@ -1,6 +1,6 @@
 namespace RayTracer.Implementation;
 
-public class Tuple
+public class Tuple : IEquatable<Tuple>
 {
     public double X;
     public double Y;
@@ -23,22 +23,35 @@ public class Tuple
 
     public static Tuple point(double x, double y, double z)
         => new Tuple(x, y, z, 1.0);
-  
+
 
     public static Tuple vector(double x, double y, double z)
         => new Tuple(x, y, z, 0.0);
-    
 
-   private static bool CompareDoubleEpsilon(double a, double b, double epsilon)
-       => Math.Abs(a - b) < epsilon;
-    
-   public static bool AreEqual(Tuple a, Tuple b, double epsilon = 0.000001) 
-       => CompareDoubleEpsilon(a.X, b.X, epsilon) 
-          && CompareDoubleEpsilon(a.Y, b.Y, epsilon) 
-          && CompareDoubleEpsilon(a.Z, b.Z, epsilon) 
-          && a.W == b.W;
 
-   public static Tuple operator +(Tuple a)
+    private static bool CompareDoubleEpsilon(double a, double b)
+        => Math.Abs(a - b) < double.Epsilon ;
+
+    public bool Equals(Tuple other)
+    {
+        return CompareDoubleEpsilon(this.X, other.X) 
+            && CompareDoubleEpsilon(this.Y, other.Y) 
+            && CompareDoubleEpsilon(this.Z, other.Z) 
+            && this.W == other.W;
+    }
+
+    public override bool Equals(Object obj)
+    {
+        if (obj == null)
+            return false;
+
+        Tuple tup = obj as Tuple;
+        if (tup == null)
+            return false;
+        else
+            return Equals(tup);
+    }
+    public static Tuple operator +(Tuple a)
        => a;
 
    public static Tuple operator -(Tuple a)

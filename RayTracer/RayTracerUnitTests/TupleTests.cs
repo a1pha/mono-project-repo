@@ -87,15 +87,15 @@ public class TupleTests
     {
         Tuple tup1 = new Tuple(1, 2, 3, 1);
         Tuple tup2 = new Tuple(1, 2, 3, 1);
-        Assert.IsTrue(Tuple.AreEqual(tup1, tup2));
+        Assert.AreEqual(tup1, tup2);
     }
     
     [Test]
     public void AreEqualTrueNotExact()
     {
         Tuple tup1 = new Tuple(1, 2, 3, 1);
-        Tuple tup2 = new Tuple(0.999999, 1.999999, 2.999999, 1);
-        Assert.IsTrue(Tuple.AreEqual(tup1, tup2, epsilon:0.01));
+        Tuple tup2 = new Tuple(1.0-Double.Epsilon, 2.0-Double.Epsilon, 3.0-Double.Epsilon, 1);
+        Assert.AreEqual(tup1, tup2);
     }
     
     [Test]
@@ -103,7 +103,7 @@ public class TupleTests
     {
         Tuple tup1 = new Tuple(1, 2, 3, 1);
         Tuple tup2 = new Tuple(0.999999, 1.999999, 2.999999, 1);
-        Assert.IsFalse(Tuple.AreEqual(tup1, tup2, epsilon:0.00000001));
+        Assert.AreNotEqual(tup1, tup2);
     }
     
     [Test]
@@ -111,7 +111,7 @@ public class TupleTests
     {
         Tuple tup1 = new Tuple(1, 2, 3, 1);
         Tuple tup2 = new Tuple(1, 5, 3, 1);
-        Assert.IsFalse(Tuple.AreEqual(tup1, tup2));
+        Assert.AreNotEqual(tup1, tup2);
     }
 
     [Test]
@@ -121,7 +121,7 @@ public class TupleTests
         Tuple tup2 = new Tuple(3, 2, 1, 0);
         Tuple sum = tup1 + tup2;
         Tuple expected = new Tuple(4, 4, 4, 1);
-        Assert.IsTrue(Tuple.AreEqual(sum, expected));
+        Assert.AreEqual(expected, sum);
     }
     
     [Test]
@@ -131,7 +131,7 @@ public class TupleTests
         Tuple tup2 = new Tuple(3, 2, 1, 0);
         Tuple sum = tup1 + tup2;
         Tuple expected = new Tuple(4, 4, 4, 0);
-        Assert.IsTrue(Tuple.AreEqual(sum, expected));
+        Assert.AreEqual(expected, sum);
     }
     
     [Test]
@@ -141,7 +141,7 @@ public class TupleTests
         Tuple tup2 = Tuple.point(5, 6, 7);
         Tuple diff = tup1 - tup2;
         Tuple expected = Tuple.vector(-2, -4, -6);
-        Assert.IsTrue(Tuple.AreEqual(diff, expected));
+        Assert.AreEqual(expected, diff);
     }
     
     [Test]
@@ -151,7 +151,7 @@ public class TupleTests
         Tuple tup2 = Tuple.vector(5, 6, 7);
         Tuple diff = tup1 - tup2;
         Tuple expected = Tuple.point(-2, -4, -6);
-        Assert.IsTrue(Tuple.AreEqual(diff, expected));
+        Assert.AreEqual(expected, diff);
     }
     
     [Test]
@@ -161,7 +161,7 @@ public class TupleTests
         Tuple tup2 = Tuple.vector(5, 6, 7);
         Tuple diff = tup1 - tup2;
         Tuple expected = Tuple.vector(-2, -4, -6);
-        Assert.IsTrue(Tuple.AreEqual(diff, expected));
+        Assert.AreEqual(expected, diff);
     }
     
     [Test]
@@ -171,7 +171,7 @@ public class TupleTests
         Tuple tup2 = Tuple.vector(5, -6, 7);
         Tuple diff = zero - tup2;
         Tuple expected = Tuple.vector(-5, 6, -7);
-        Assert.IsTrue(Tuple.AreEqual(diff, expected));
+        Assert.AreEqual(expected, diff);
     }
     
     [Test]
@@ -179,7 +179,7 @@ public class TupleTests
     {
         Tuple actual = new Tuple(-1, 2, -3, 4);
         Tuple expected = new Tuple(1, -2, 3, -4);
-        Assert.IsTrue(Tuple.AreEqual(-actual, expected));
+        Assert.AreEqual(expected, -actual);
     }
     
     [Test]
@@ -187,7 +187,7 @@ public class TupleTests
     {
         Tuple actual = new Tuple(-1, 2, -3, 4);
         Tuple expected = new Tuple(-2, 4, -6, 8);
-        Assert.IsTrue(Tuple.AreEqual(actual*2, expected));
+        Assert.AreEqual(expected, actual*2);
     }
     
     [Test]
@@ -195,7 +195,7 @@ public class TupleTests
     {
         Tuple actual = new Tuple(-1, 2, -3, 4);
         Tuple expected = new Tuple(-0.5, 1.0, -1.5, 2.0);
-        Assert.IsTrue(Tuple.AreEqual(actual*0.5, expected));
+        Assert.AreEqual(expected, 0.5*actual);
     }
 
     [Test] 
@@ -203,7 +203,7 @@ public class TupleTests
     {
         Tuple actual = new Tuple(1, -2, -3, -4);
         Tuple expected = new Tuple(0.5, -1, -1.5, -2);
-        Assert.IsTrue(Tuple.AreEqual(actual/2, expected));
+        Assert.AreEqual(expected, actual/2);
     }
     
     [Test] 
@@ -246,7 +246,7 @@ public class TupleTests
     {
         Tuple orig = Tuple.vector(4,0,0);
         Tuple norm = Tuple.vector(1,0,0);
-        Assert.IsTrue(Tuple.AreEqual(norm, orig.Normalize()));
+        Assert.AreEqual(norm, orig.Normalize());
     }
     
     [Test] 
@@ -254,7 +254,7 @@ public class TupleTests
     {
         Tuple orig = Tuple.vector(1,2,3);
         Tuple norm = Tuple.vector(1.0/Double.Sqrt(14),2.0/Double.Sqrt(14),3/Double.Sqrt(14));
-        Assert.IsTrue(Tuple.AreEqual(norm, orig.Normalize()));
+        Assert.AreEqual(norm, orig.Normalize());
     }
     
     [Test] 
@@ -279,7 +279,7 @@ public class TupleTests
         Tuple a = Tuple.vector(1,2,3);
         Tuple b = Tuple.vector(2,3,4);
         Tuple res = Tuple.vector(-1, 2, -1);
-        Assert.IsTrue(Tuple.AreEqual(Tuple.CrossProduct(a, b), res));
+        Assert.AreEqual(res, Tuple.CrossProduct(a,b));
     }
     
     [Test] 
@@ -288,7 +288,7 @@ public class TupleTests
         Tuple a = Tuple.vector(1,2,3);
         Tuple b = Tuple.vector(2,3,4);
         Tuple res = Tuple.vector(1, -2, 1);
-        Assert.IsTrue(Tuple.AreEqual(Tuple.CrossProduct(b, a), res));
+        Assert.AreEqual(res, Tuple.CrossProduct(b,a));
     }
 
 }
