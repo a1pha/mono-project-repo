@@ -4,5 +4,7 @@
   &lt;Or&gt;
     &lt;ProjectFile&gt;C16C2461-071F-41E3-A261-3D4BE527701B/f:TupleTests.cs&lt;/ProjectFile&gt;
     &lt;ProjectFile&gt;C16C2461-071F-41E3-A261-3D4BE527701B/f:ColorTests.cs&lt;/ProjectFile&gt;
+    &lt;ProjectFile&gt;C16C2461-071F-41E3-A261-3D4BE527701B/f:PixelTests.cs&lt;/ProjectFile&gt;
+    &lt;ProjectFile&gt;C16C2461-071F-41E3-A261-3D4BE527701B/f:CanvasTests.cs&lt;/ProjectFile&gt;
   &lt;/Or&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
