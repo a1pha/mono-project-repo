@@ -1,2 +1,7 @@
 .DS_Store
 *.dll
+RayTracer/.idea/
+RayTracer/RayTracer/bin/
+RayTracer/RayTracer/obj/
+RayTracer/RayTracerUnitTests/bin/
+RayTracer/RayTracerUnitTests/obj/
