@@ -63,5 +63,40 @@ public class CanvasTests
             }
         }
     }
+
+    [Test]
+    public void CanvasToPPMHeader()
+    {
+        Canvas can = new Canvas(10, 20);
+        String ppmstring = Canvas.CanvasToPPM(can);
+        using (var reader = new StringReader(ppmstring))
+        {
+            Assert.That(reader.ReadLine(), Is.EqualTo("P3"));
+            Assert.That(reader.ReadLine(), Is.EqualTo("10 20"));
+            Assert.That(reader.ReadLine(), Is.EqualTo("255"));
+        }
+    }
+    
+    [Test]
+    public void CanvasToPPMNoOverflow()
+    {
+        Canvas can = new Canvas(5, 3);
+        Color col1 = new Color(1.5, 0, 0);
+        Color col2 = new Color(0, 0.5, 0);
+        Color col3 = new Color(-0.5, 0, 1);
+        Canvas.WritePixel(can, 0, 0, col1);
+        Canvas.WritePixel(can, 2, 1, col2);
+        Canvas.WritePixel(can, 4, 2, col3);
+        String ppmstring = Canvas.CanvasToPPM(can);
+        using (var reader = new StringReader(ppmstring))
+        {
+            Assert.That(reader.ReadLine(), Is.EqualTo("P3"));
+            Assert.That(reader.ReadLine(), Is.EqualTo("5 3"));
+            Assert.That(reader.ReadLine(), Is.EqualTo("255"));
+            Assert.That(reader.ReadLine(), Is.EqualTo("255 0 0 0 0 0 0 0 0 0 0 0 0 0 0"));
+            Assert.That(reader.ReadLine(), Is.EqualTo("0 0 0 0 0 0 0 128 0 0 0 0 0 0 0"));
+            Assert.That(reader.ReadLine(), Is.EqualTo("0 0 0 0 0 0 0 0 0 0 0 0 0 0 255"));
+        }
+    }
     
 }
