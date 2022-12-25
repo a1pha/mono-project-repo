@@ -11,5 +11,12 @@ public class Canvas
         L = l;
         W = w;
         Array = new Pixel[l,w];
+        for (int i = 0; i < l; i++)
+        {
+            for (int j = 0; j < w; j++)
+            {
+                Array[i, j] = new Pixel();
+            }
+        }
     }
 }

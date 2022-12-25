@@ -2,14 +2,15 @@ namespace RayTracer.Implementation;
 
 public class Pixel
 {
-    public int X;
-    public int Y;
     public Color Color;
 
-    public Pixel(int x, int y, Color col)
+    public Pixel()
     {
-        X = x;
-        Y = y;
+        Color = new Color(0, 0, 0);
+    }
+
+    public Pixel(Color col)
+    {
         Color = col;
     }
 }
