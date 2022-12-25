@@ -19,4 +19,13 @@ public class Canvas
             }
         }
     }
+
+    public static void WritePixel(Canvas can, int x, int y, Color c)
+    {
+        if (x < 0 || x >= can.L || y < 0 || y >= can.W)
+        {
+            return;
+        }
+        can.Array[x, y].Color = c;
+    }
 }
