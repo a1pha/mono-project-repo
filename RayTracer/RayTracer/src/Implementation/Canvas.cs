@@ -2,18 +2,18 @@ namespace RayTracer.Implementation;
 
 public class Canvas
 {
-    public int L;
     public int W;
+    public int H;
     public Pixel[,] Array;
 
-    public Canvas(int l, int w)
+    public Canvas(int w, int h)
     {
-        L = l;
         W = w;
-        Array = new Pixel[l,w];
-        for (int i = 0; i < l; i++)
+        H = h;
+        Array = new Pixel[H,W];
+        for (int i = 0; i < H; i++)
         {
-            for (int j = 0; j < w; j++)
+            for (int j = 0; j < W; j++)
             {
                 Array[i, j] = new Pixel();
             }
@@ -22,18 +22,18 @@ public class Canvas
 
     public static void WritePixel(Canvas can, int x, int y, Color c)
     {
-        if (x < 0 || x >= can.L || y < 0 || y >= can.W)
+        if (x < 0 || x >= can.W || y < 0 || y >= can.H)
         {
             return;
         }
-        can.Array[x, y].Color = c;
+        can.Array[y, x].Color = c;
     }
 
     private static string PPMHeader(Canvas can)
     {
         StringWriter stringWriter = new StringWriter();
         stringWriter.WriteLine("P3");
-        stringWriter.WriteLine("{0} {1}", can.L, can.W);
+        stringWriter.WriteLine("{0} {1}", can.W, can.H);
         stringWriter.WriteLine("255");
         stringWriter.Close();
         return stringWriter.ToString();
@@ -45,7 +45,7 @@ public class Canvas
         // Write header
         stringWriter.Write(Canvas.PPMHeader(can));
         // Write file
-        for (int i = 0; i < can.L; i++)
+        for (int i = 0; i < can.H; i++)
         {
             for (int j = 0; j < can.W; j++)
             {
@@ -53,7 +53,11 @@ public class Canvas
                 {
                     stringWriter.WriteLine();
                 }
-                stringWriter.Write("{0} {1} {2} ",
+                else if (j !=  0)
+                {
+                    stringWriter.Write(" ");
+                }
+                stringWriter.Write("{0} {1} {2}",
                     (int) can.Array[i,j].Color.Red*255,
                     (int) can.Array[i,j].Color.Green*255,
                     (int) can.Array[i,j].Color.Blue*255);

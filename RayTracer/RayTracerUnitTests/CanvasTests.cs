@@ -11,8 +11,8 @@ public class CanvasTests
     {
         Canvas can = new Canvas(10, 20);
         Assert.That(can.Array.Rank, Is.EqualTo(2));
-        Assert.That(can.Array.GetLength(0), Is.EqualTo(10));
-        Assert.That(can.Array.GetLength(1), Is.EqualTo(20));
+        Assert.That(can.Array.GetLength(0), Is.EqualTo(20));
+        Assert.That(can.Array.GetLength(1), Is.EqualTo(10));
         Color black = new Color(0, 0, 0);
          for (int i = 0; i < can.Array.GetLength(0); i++)
          {
@@ -34,7 +34,7 @@ public class CanvasTests
         {
             for (int j = 0; j < can.Array.GetLength(1); j++)
             {
-                if (i == 2 && j == 3)
+                if (i == 3 && j == 2)
                 {
                     Assert.That(can.Array[i,j].Color, Is.EqualTo(col));
                 }
@@ -76,7 +76,7 @@ public class CanvasTests
             Assert.That(reader.ReadLine(), Is.EqualTo("255"));
         }
     }
-    
+
     [Test]
     public void CanvasToPPMNoOverflow()
     {
@@ -88,14 +88,13 @@ public class CanvasTests
         Canvas.WritePixel(can, 2, 1, col2);
         Canvas.WritePixel(can, 4, 2, col3);
         String ppmstring = Canvas.CanvasToPPM(can);
+        String expected =
+            "P3\n5 3\n255\n255 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n0 0 0 0 0 0 0 128 0 0 0 0 0 0 0\n0 0 0 0 0 0 0 0 0 0 0 0 0 0 255";
         using (var reader = new StringReader(ppmstring))
         {
-            Assert.That(reader.ReadLine(), Is.EqualTo("P3"));
-            Assert.That(reader.ReadLine(), Is.EqualTo("5 3"));
-            Assert.That(reader.ReadLine(), Is.EqualTo("255"));
-            Assert.That(reader.ReadLine(), Is.EqualTo("255 0 0 0 0 0 0 0 0 0 0 0 0 0 0"));
-            Assert.That(reader.ReadLine(), Is.EqualTo("0 0 0 0 0 0 0 128 0 0 0 0 0 0 0"));
-            Assert.That(reader.ReadLine(), Is.EqualTo("0 0 0 0 0 0 0 0 0 0 0 0 0 0 255"));
+            String actual = reader.ReadToEnd();
+            Console.Write(actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
     }
     
