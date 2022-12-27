@@ -45,5 +45,33 @@ public class Matrix
         get { return Array[index1, index2]; }
         set { Array[index1, index2] = value; }
     }
+    
+    private static bool CompareDoubleEpsilon(double a, double b)
+        => Math.Abs(a - b) < 1e-9 ;
+
+    public bool Equals(Matrix other)
+    {
+        if (this.Cols != other.Cols || this.Rows != other.Rows) return false;
+        for (int i = 0; i < Rows; i++)
+        {
+            for (int j = 0; j < Cols; j++)
+            {
+                if (!CompareDoubleEpsilon(this[i, j], other[i, j])) return false;
+            }
+        }
+        return true;
+    }
+
+    public override bool Equals(Object obj)
+    {
+        if (obj == null)
+            return false;
+
+        Matrix mat = obj as Matrix;
+        if (mat == null)
+            return false;
+        else
+            return Equals(mat);
+    }
 
 }

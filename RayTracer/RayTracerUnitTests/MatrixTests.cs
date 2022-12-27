@@ -99,4 +99,36 @@ public class MatrixTests
             delegate { Matrix mat = new Matrix(2, 2, "-3 -5 1 1 2 3 4 5 6 1 12"); });
     }
     
+    [Test]
+    public void EqualsTrue()
+    {
+        Matrix mat1 = new Matrix(3, 3, "-3 -5 0 1 -2 -7 0 1 1");
+        Matrix mat2 = new Matrix(3, 3, "-3 -5 0 1 -2 -7 0 1 1");
+        Assert.That(mat1, Is.EqualTo(mat2));
+    }
+    
+    [Test]
+    public void EqualsFalse()
+    {
+        Matrix mat1 = new Matrix(3, 3, "-3 -5 0 0 -2 -7 0 1 1");
+        Matrix mat2 = new Matrix(3, 3, "-3 -5 0 1 -2 -7 0 1 1");
+        Assert.That(mat1, Is.Not.EqualTo(mat2));
+    }
+    
+    [Test]
+    public void EqualsTrueNotExact()
+    {
+        Matrix mat1 = new Matrix(3, 3, "-3 -5 0 1 -2 -7 0 1 1");
+        Matrix mat2 = new Matrix(3, 3, "-3 -5 0 .999999999 -2 -7 0 1 1");
+        Assert.That(mat1, Is.EqualTo(mat2));
+    }
+    
+    [Test]
+    public void EqualsFalseNotExact()
+    {
+        Matrix mat1 = new Matrix(3, 3, "-3 -5 0 1 -2 -7 0 1 1");
+        Matrix mat2 = new Matrix(3, 3, "-3 -5 0 .99999999 -2 -7 0 1 1");
+        Assert.That(mat1, Is.Not.EqualTo(mat2));
+    }
+    
 }
