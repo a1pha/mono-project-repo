@@ -39,6 +39,17 @@ public class Matrix
             counter++;
         }
     }
+
+    public Matrix(Tuple tup)
+    {
+        Rows = 4;
+        Cols = 1;
+        Array = new double[4, 1];
+        Array[0, 0] = tup.X;
+        Array[1, 0] = tup.Y;
+        Array[2, 0] = tup.Z;
+        Array[3, 0] = tup.W;
+    }
     
     public double this[long index1, long index2]
     {
@@ -95,6 +106,24 @@ public class Matrix
             }
         }
         return ret;
+    }
+
+    public static Tuple operator *(Matrix mat, Tuple tup)
+    {
+        Matrix tupmat = new Matrix(tup);
+        Matrix result = mat * tupmat;
+        Tuple tupresult = new Tuple(result[0, 0], result[1, 0], result[2, 0], result[3, 0]);
+        return tupresult;
+    }
+
+    public static Matrix identityMatrix(long rank)
+    {
+        Matrix mat = new Matrix(rank, rank);
+        for (int i = 0; i < rank; i++)
+        {
+            mat.Array[i, i] = 1;
+        }
+        return mat;
     }
 
 }

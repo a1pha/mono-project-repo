@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using RayTracer.Implementation;
+using Tuple = RayTracer.Implementation.Tuple;
 
 namespace RayTracerUnitTests;
 
@@ -141,7 +142,16 @@ public class MatrixTests
     }
     
     [Test]
-    public void MultiplyIllegal()
+    public void Multiply3x3()
+    {
+        Matrix mat1 = new Matrix(3, 3, "1 2 3 4 5 6 7 8 9");
+        Matrix mat2 = new Matrix(3, 3, "9 8 7 6 5 4 3 2 1");
+        Matrix expected = new Matrix(3, 3, "30 24 18 84 69 54 138 114 90");
+        Assert.That(mat1*mat2, Is.EqualTo(expected));
+    }
+    
+    [Test]
+    public void MultiplyDimensionMismatch()
     {
         Matrix mat1 = new Matrix(4, 4, "1 2 3 4 4 3 2 1 -1 -2 -3 -4 -4 -3 -2 -1");
         Matrix mat2 = new Matrix(2, 2);
@@ -150,5 +160,21 @@ public class MatrixTests
             {
                 Matrix result = mat1 * mat2; });
     }
-    
+
+    [Test]
+    public void MatrixByTuple()
+    {
+        Matrix mat = new Matrix(4, 4, "1 2 3 4 2 4 4 2 8 6 4 1 0 0 0 1");
+        Tuple tup = new Tuple(1, 2, 3, 1);
+        Tuple expected = new Tuple(18, 24, 33,1);
+        Assert.That(mat*tup, Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void MultiplyByIdentity()
+    {
+        Matrix mat = new Matrix(4, 4, "1 2 3 4 2 4 4 2 8 6 4 1 0 0 0 1");
+        Matrix identity = Matrix.identityMatrix(4);
+        Assert.That(mat*identity, Is.EqualTo(mat));
+    }
 }
