@@ -1,112 +1,97 @@
+using System;
 using System.Text;
-using Microsoft.VisualBasic.CompilerServices;
 
-namespace RayTracer.Implementation;
-
-public class Canvas
+namespace RayTracer.Implementation
 {
-    public int W;
-    public int H;
-    public Pixel[,] Array;
-
-    public Canvas(int w, int h)
+    public class Canvas
     {
-        W = w;
-        H = h;
-        Array = new Pixel[H,W];
-        for (int i = 0; i < H; i++)
+        public int Width { get; }
+        public int Height { get; }
+        public Pixel[,] Array { get; }
+
+        public Canvas(int width, int height)
         {
-            for (int j = 0; j < W; j++)
+            Width = width;
+            Height = height;
+            Array = new Pixel[Height, Width];
+
+            for (int y = 0; y < Height; y++)
             {
-                Array[i, j] = new Pixel();
-            }
-        }
-    }
-
-    public static void WritePixel(Canvas can, int x, int y, Color c)
-    {
-        if (x < 0 || x >= can.W || y < 0 || y >= can.H)
-        {
-            return;
-        }
-        can.Array[y, x].Color = c;
-    }
-
-    private static string PPMHeader(Canvas can)
-    {
-        StringWriter stringWriter = new StringWriter();
-        stringWriter.Write("P3\n{0} {1}\n255", can.W, can.H);
-        stringWriter.Close();
-        return stringWriter.ToString();
-    }
-    
-    private static void WritePixelToPPM(StringBuilder buffer, Color color, ref int charactersWrittenForPixel)
-    {
-        int R = (int) Math.Round(color.Red * 255, MidpointRounding.AwayFromZero);
-        int G = (int) Math.Round(color.Green * 255, MidpointRounding.AwayFromZero);
-        int B = (int) Math.Round(color.Blue * 255, MidpointRounding.AwayFromZero);
-        R = Math.Min(Math.Max(R, 0), 255);
-        G = Math.Min(Math.Max(G, 0), 255);
-        B = Math.Min(Math.Max(B, 0), 255);
-
-        string[] strings = new string[] { R.ToString(), G.ToString(), B.ToString() };
-
-        foreach (string s in strings)
-        {
-            if (charactersWrittenForPixel + 1 + s.Length > 70)
-            {
-                buffer.AppendLine();
-                charactersWrittenForPixel = 0;
-            }
-            else if (charactersWrittenForPixel != 0)
-            {
-                buffer.Append(" ");
-                charactersWrittenForPixel++;
-            }
-
-            buffer.Append(s);
-            charactersWrittenForPixel += s.Length;
-        }
-    }
-
-    public static string CanvasToPPM(Canvas can)
-    {
-        StringWriter stringWriter = new StringWriter();
-        // Write header
-        stringWriter.WriteLine(PPMHeader(can));
-        StringBuilder buffer = new StringBuilder();
-        for (int i = 0; i < can.H; i++)
-        {
-            if (buffer.Length > 0)
-            {
-                buffer.AppendLine();
-            }
-
-            int charactersWrittenForPixel = 0;
-            for (int j = 0; j < can.W; j++)
-            {
-                WritePixelToPPM(buffer, can.Array[i, j].Color, ref charactersWrittenForPixel);
+                for (int x = 0; x < Width; x++)
+                {
+                    Array[y, x] = new Pixel();
+                }
             }
         }
 
-        stringWriter.Write(buffer.ToString());
-        stringWriter.Close();
-        return stringWriter.ToString();
-    }
-
-    public void FillWithColor(Color col)
-    {
-        for (int i = 0; i < H; i++)
+        public void WritePixel(int x, int y, Color color)
         {
-            for (int j = 0; j < W; j++)
+            if (x < 0 || x >= Width || y < 0 || y >= Height)
             {
-                Array[i, j].Color = col;
+                return;
+            }
+            Array[y, x].Color = color;
+        }
+
+        public void FillWithColor(Color color)
+        {
+            for (int y = 0; y < Height; y++)
+            {
+                for (int x = 0; x < Width; x++)
+                {
+                    Array[y, x].Color = color;
+                }
             }
         }
-    }
 
-    private static int Clamp(int value, int min, int max)
-    {
-        return Math.Min(Math.Max(value, min), max);
+        public string ToPPM()
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine($"P3\n{Width} {Height}\n255");
+
+            for (int y = 0; y < Height; y++)
+            {
+                var charactersWrittenForPixel = 0;
+                for (int x = 0; x < Width; x++)
+                {
+                    WritePixelToPPM(sb, Array[y, x].Color, ref charactersWrittenForPixel);
+                }
+                sb.AppendLine();
+            }
+
+            return sb.ToString();
+        }
+
+        private static void WritePixelToPPM(StringBuilder buffer, Color color, ref int charactersWrittenForPixel)
+        {
+            int r = Clamp((int) Math.Round(color.Red * 255, MidpointRounding.AwayFromZero), 0, 255);
+            int g = Clamp((int) Math.Round(color.Green * 255, MidpointRounding.AwayFromZero), 0, 255);
+            int b = Clamp((int) Math.Round(color.Blue * 255, MidpointRounding.AwayFromZero), 0, 255);
+
+            var values = new[] { r.ToString(), g.ToString(), b.ToString() };
+
+            foreach (var value in values)
+            {
+                if (charactersWrittenForPixel + 1 + value.Length > 70)
+                {
+                    buffer.AppendLine();
+                    charactersWrittenForPixel = 0;
+                }
+                else if (charactersWrittenForPixel != 0)
+                {
+                    buffer.Append(" ");
+                    charactersWrittenForPixel++;
+                }
+
+                buffer.Append(value);
+                charactersWrittenForPixel += value.Length;
+            }
+        }
+
+        private static int Clamp(int value, int min, int max)
+        {
+            return Math.Min(Math.Max(value, min), max);
+        }
     }
 }
+

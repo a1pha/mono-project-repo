@@ -29,7 +29,7 @@ public class CanvasTests
         Canvas can = new Canvas(10, 20);
         Color col = new Color(0.5, 0.3, 0.1);
         Color black = new Color(0, 0, 0);
-        Canvas.WritePixel(can, 2, 3, col);
+        can.WritePixel(2,3, col);
         for (int i = 0; i < can.Array.GetLength(0); i++)
         {
             for (int j = 0; j < can.Array.GetLength(1); j++)
@@ -52,9 +52,9 @@ public class CanvasTests
         Canvas can = new Canvas(10, 20);
         Color col = new Color(0.5, 0.3, 0.1);
         Color black = new Color(0, 0, 0);
-        Canvas.WritePixel(can, -1, -3, col);
-        Canvas.WritePixel(can, 10, 20, col);
-        Canvas.WritePixel(can, 100, 200, col);
+        can.WritePixel(-1,-3, col);
+        can.WritePixel(10,20, col);
+        can.WritePixel(100,200, col);
         for (int i = 0; i < can.Array.GetLength(0); i++)
         {
             for (int j = 0; j < can.Array.GetLength(1); j++)
@@ -68,7 +68,7 @@ public class CanvasTests
     public void CanvasToPPMHeader()
     {
         Canvas can = new Canvas(10, 20);
-        String ppmstring = Canvas.CanvasToPPM(can);
+        String ppmstring = can.ToPPM();
         using (var reader = new StringReader(ppmstring))
         {
             Assert.That(reader.ReadLine(), Is.EqualTo("P3"));
@@ -84,12 +84,12 @@ public class CanvasTests
         Color col1 = new Color(1.5, 0, 0);
         Color col2 = new Color(0, 0.5, 0);
         Color col3 = new Color(-0.5, 0, 1);
-        Canvas.WritePixel(can, 0, 0, col1);
-        Canvas.WritePixel(can, 2, 1, col2);
-        Canvas.WritePixel(can, 4, 2, col3);
-        String ppmstring = Canvas.CanvasToPPM(can);
+        can.WritePixel(0,0,col1);
+        can.WritePixel(2,1,col2);
+        can.WritePixel(4,2,col3);
+        String ppmstring = can.ToPPM();
         String expected =
-            "P3\n5 3\n255\n255 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n0 0 0 0 0 0 0 128 0 0 0 0 0 0 0\n0 0 0 0 0 0 0 0 0 0 0 0 0 0 255";
+            "P3\n5 3\n255\n255 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n0 0 0 0 0 0 0 128 0 0 0 0 0 0 0\n0 0 0 0 0 0 0 0 0 0 0 0 0 0 255\n";
         using (var reader = new StringReader(ppmstring))
         {
             String actual = reader.ReadToEnd();
@@ -103,7 +103,7 @@ public class CanvasTests
         Canvas can = new Canvas(10, 2);
         Color col = new Color(1, 0.8, 0.6);
         can.FillWithColor(col);
-        String ppmstring = Canvas.CanvasToPPM(can);
+        String ppmstring = can.ToPPM();
         String expected =
             "255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204\n" +
             "153 255 204 153 255 204 153 255 204 153 255 204 153\n" +
@@ -118,5 +118,13 @@ public class CanvasTests
             Assert.That(output, Is.EqualTo(expected));
         }
     }
-    
+
+    [Test]
+    public void CanvasToPPMEndsNln()
+    {
+        Canvas can = new Canvas(5, 3);
+        String ppm = can.ToPPM();
+        Assert.That(ppm.Last(), Is.EqualTo('\n'));
+    }
+
 }
