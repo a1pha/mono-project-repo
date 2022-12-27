@@ -78,7 +78,7 @@ public class CanvasTests
     }
 
     [Test]
-    public void CanvasToPPMNoOverflow()
+    public void CanvasToPPMNoOverflow1()
     {
         Canvas can = new Canvas(5, 3);
         Color col1 = new Color(1.5, 0, 0);
@@ -93,8 +93,29 @@ public class CanvasTests
         using (var reader = new StringReader(ppmstring))
         {
             String actual = reader.ReadToEnd();
-            Console.Write(actual);
             Assert.That(actual, Is.EqualTo(expected));
+        }
+    }
+    
+    [Test]
+    public void CanvasToPPMNoOverflow2()
+    {
+        Canvas can = new Canvas(10, 2);
+        Color col = new Color(1, 0.8, 0.6);
+        can.FillWithColor(col);
+        String ppmstring = Canvas.CanvasToPPM(can);
+        String expected =
+            "255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204\n" +
+            "153 255 204 153 255 204 153 255 204 153 255 204 153\n" +
+            "255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204\n" +
+            "153 255 204 153 255 204 153 255 204 153 255 204 153";
+        using (var reader = new StringReader(ppmstring))
+        {
+            String actual = reader.ReadToEnd();
+            string[] lines = actual.Split('\n');
+            string output = string.Join("\n", lines[3..7]);
+            Console.Write(output);
+            Assert.That(output, Is.EqualTo(expected));
         }
     }
     
