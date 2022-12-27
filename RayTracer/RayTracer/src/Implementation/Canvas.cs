@@ -42,35 +42,42 @@ public class Canvas
     public static string CanvasToPPM(Canvas can)
     {
         StringWriter stringWriter = new StringWriter();
-        // Write header
         stringWriter.Write(PPMHeader(can));
-        // Write file
+
         for (int i = 0; i < can.H; i++)
         {
             stringWriter.WriteLine();
+            int charactersWritten = 0;
             for (int j = 0; j < can.W; j++)
             {
-                if (j > 0 && j % 6 == 0)
+                int R = (int)Math.Round(can.Array[i, j].Color.Red * 255, MidpointRounding.AwayFromZero);
+                int G = (int)Math.Round(can.Array[i, j].Color.Green * 255, MidpointRounding.AwayFromZero);
+                int B = (int)Math.Round(can.Array[i, j].Color.Blue * 255, MidpointRounding.AwayFromZero);
+                R = Clamp(R, 0, 255);
+                G = Clamp(G, 0, 255);
+                B = Clamp(B, 0, 255);
+
+                string pixel = $"{R} {G} {B}";
+                if (charactersWritten + pixel.Length > 70)
                 {
                     stringWriter.WriteLine();
+                    charactersWritten = 0;
                 }
-                else if (j !=  0)
+                else if (charactersWritten != 0)
                 {
                     stringWriter.Write(" ");
+                    charactersWritten++;
                 }
-
-                int R = (int) Math.Round(can.Array[i, j].Color.Red * 255, MidpointRounding.AwayFromZero);
-                int G = (int) Math.Round(can.Array[i, j].Color.Green * 255, MidpointRounding.AwayFromZero);
-                int B = (int) Math.Round(can.Array[i, j].Color.Blue * 255, MidpointRounding.AwayFromZero);
-                R = Math.Min(Math.Max(R, 0), 255);
-                G = Math.Min(Math.Max(G, 0), 255);
-                B = Math.Min(Math.Max(B, 0), 255);
-                
-                stringWriter.Write("{0} {1} {2}", R, G, B);
+                stringWriter.Write(pixel);
+                charactersWritten += pixel.Length;
             }
         }
-
         stringWriter.Close();
         return stringWriter.ToString();
+    }
+
+    private static int Clamp(int value, int min, int max)
+    {
+        return Math.Min(Math.Max(value, min), max);
     }
 }
