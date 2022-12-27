@@ -53,7 +53,7 @@ public class Canvas
 
         foreach (string s in strings)
         {
-            if (charactersWrittenForPixel + s.Length > 70)
+            if (charactersWrittenForPixel + 1 + s.Length > 70)
             {
                 buffer.AppendLine();
                 charactersWrittenForPixel = 0;
