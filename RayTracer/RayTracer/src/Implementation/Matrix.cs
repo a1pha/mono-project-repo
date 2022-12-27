@@ -74,4 +74,27 @@ public class Matrix
             return Equals(mat);
     }
 
+    public static Matrix operator *(Matrix a, Matrix b)
+    {
+        if (a.Cols != b.Rows)
+        {
+            throw new InvalidOperationException("Incompatible matrices for multiplication");
+        }
+        Matrix ret = new Matrix(a.Rows, b.Cols);
+        double currSum;
+        for (int i = 0; i < ret.Rows; i++)
+        {
+            for (int j = 0; j < ret.Cols; j++)
+            {
+                currSum = 0;
+                for (int k = 0; k < a.Cols; k++)
+                {
+                    currSum += a[i, k] * b[k, j];
+                }
+                ret[i, j] = currSum;
+            }
+        }
+        return ret;
+    }
+
 }

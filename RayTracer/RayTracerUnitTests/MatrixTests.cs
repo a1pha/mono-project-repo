@@ -130,5 +130,25 @@ public class MatrixTests
         Matrix mat2 = new Matrix(3, 3, "-3 -5 0 .99999999 -2 -7 0 1 1");
         Assert.That(mat1, Is.Not.EqualTo(mat2));
     }
+
+    [Test]
+    public void Multiply4x4()
+    {
+        Matrix mat1 = new Matrix(4, 4, "1 2 3 4 4 3 2 1 -1 -2 -3 -4 -4 -3 -2 -1");
+        Matrix mat2 = new Matrix(4, 4, "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15");
+        Matrix expected = new Matrix(4, 4, "80 90 100 110 40 50 60 70 -80 -90 -100 -110 -40 -50 -60 -70");
+        Assert.That(mat1*mat2, Is.EqualTo(expected));
+    }
+    
+    [Test]
+    public void MultiplyIllegal()
+    {
+        Matrix mat1 = new Matrix(4, 4, "1 2 3 4 4 3 2 1 -1 -2 -3 -4 -4 -3 -2 -1");
+        Matrix mat2 = new Matrix(2, 2);
+        Assert.Throws<InvalidOperationException>(
+            delegate
+            {
+                Matrix result = mat1 * mat2; });
+    }
     
 }
