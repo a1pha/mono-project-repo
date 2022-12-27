@@ -1,3 +1,5 @@
+using Microsoft.VisualBasic.CompilerServices;
+
 namespace RayTracer.Implementation;
 
 public class Canvas
@@ -32,9 +34,7 @@ public class Canvas
     private static string PPMHeader(Canvas can)
     {
         StringWriter stringWriter = new StringWriter();
-        stringWriter.WriteLine("P3");
-        stringWriter.WriteLine("{0} {1}", can.W, can.H);
-        stringWriter.WriteLine("255");
+        stringWriter.Write("P3\n{0} {1}\n255", can.W, can.H);
         stringWriter.Close();
         return stringWriter.ToString();
     }
@@ -43,10 +43,11 @@ public class Canvas
     {
         StringWriter stringWriter = new StringWriter();
         // Write header
-        stringWriter.Write(Canvas.PPMHeader(can));
+        stringWriter.Write(PPMHeader(can));
         // Write file
         for (int i = 0; i < can.H; i++)
         {
+            stringWriter.WriteLine();
             for (int j = 0; j < can.W; j++)
             {
                 if (j > 0 && j % 6 == 0)
@@ -57,12 +58,16 @@ public class Canvas
                 {
                     stringWriter.Write(" ");
                 }
-                stringWriter.Write("{0} {1} {2}",
-                    (int) can.Array[i,j].Color.Red*255,
-                    (int) can.Array[i,j].Color.Green*255,
-                    (int) can.Array[i,j].Color.Blue*255);
+
+                int R = (int) Math.Round(can.Array[i, j].Color.Red * 255, MidpointRounding.AwayFromZero);
+                int G = (int) Math.Round(can.Array[i, j].Color.Green * 255, MidpointRounding.AwayFromZero);
+                int B = (int) Math.Round(can.Array[i, j].Color.Blue * 255, MidpointRounding.AwayFromZero);
+                R = Math.Min(Math.Max(R, 0), 255);
+                G = Math.Min(Math.Max(G, 0), 255);
+                B = Math.Min(Math.Max(B, 0), 255);
+                
+                stringWriter.Write("{0} {1} {2}", R, G, B);
             }
-            stringWriter.WriteLine();
         }
 
         stringWriter.Close();
