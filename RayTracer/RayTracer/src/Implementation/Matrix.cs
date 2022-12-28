@@ -58,7 +58,7 @@ public class Matrix
     }
     
     private static bool CompareDoubleEpsilon(double a, double b)
-        => Math.Abs(a - b) < 1e-9 ;
+        => Math.Abs(a - b) <= 1e-4 ;
 
     public bool Equals(Matrix other)
     {
@@ -114,6 +114,18 @@ public class Matrix
         Matrix result = mat * tupmat;
         Tuple tupresult = new Tuple(result[0, 0], result[1, 0], result[2, 0], result[3, 0]);
         return tupresult;
+    }
+    
+    public static Matrix operator *(double x, Matrix mat)
+    {
+        for (int i = 0; i < mat.Rows; i++)
+        {
+            for (int j = 0; j < mat.Cols; j++)
+            {
+                mat[i, j] *= x;
+            }
+        }
+        return mat;
     }
 
     public static Matrix IdentityMatrix(long rank)
@@ -187,5 +199,27 @@ public class Matrix
     public double Cofactor(long row, long col)
     {
         return Minor(row, col) * (((row+col)%2==0) ? 1 : -1);
+    }
+
+    public bool IsInvertible()
+    {
+        return Rows == Cols ? Determinant() != 0 : false;
+    }
+
+    public Matrix Inverse()
+    {
+        if (!IsInvertible())
+        {
+            throw new InvalidOperationException("This matrix is not invertible!");
+        }
+        Matrix cofactors = new Matrix(Rows, Cols);
+        for (int i = 0; i < Rows; i++)
+        {
+            for (int j = 0; j < Cols; j++)
+            {
+                cofactors[i, j] = Cofactor(i, j);
+            }
+        } 
+        return (1.0/Determinant()) * cofactors.Transpose();
     }
 }
