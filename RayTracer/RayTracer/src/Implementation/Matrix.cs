@@ -138,5 +138,14 @@ public class Matrix
         }
         return transpose;
     }
+    
+    public double Determinant()
+    {
+        if (Rows != Cols && Rows != 2)
+        {
+            throw new InvalidOperationException("Cannot calculate determinant of non 2x2 matrix.");
+        }
+        return (Array[0, 0] * Array[1, 1]) - (Array[0, 1] * Array[1, 0]);
+    }
 
 }
