@@ -206,4 +206,41 @@ public class MatrixTests
         Matrix mat = new Matrix(2, 2, "1 2 3 4");
         Assert.That(mat.Determinant, Is.EqualTo(-2));
     }
+
+    [Test]
+    public void Submatrix3x3Test1()
+    {
+        Matrix submatrix = Matrix.Submatrix(Matrix.IdentityMatrix(3), 0, 0);
+        Matrix expected = new Matrix(2, 2, "1 0 0 1");
+        Assert.That(submatrix, Is.EqualTo(expected));
+    }
+    
+    [Test]
+    public void Submatrix3x3Test2()
+    {
+        Matrix submatrix = Matrix.Submatrix(Matrix.IdentityMatrix(3), 1, 1);
+        Matrix expected = new Matrix(2, 2, "1 0 0 1");
+        Assert.That(submatrix, Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void Minor3x3()
+    {
+        Matrix mat = new Matrix(3, 3, "3 5 0 2 -1 -7 6 -1 5");
+        Assert.That(Matrix.Minor(mat,1, 0), Is.EqualTo(25));
+    }
+    
+    [Test]
+    public void Cofactor3x3()
+    {
+        Matrix mat = new Matrix(3, 3, "3 5 0 2 -1 -7 6 -1 5");
+        Assert.That(Matrix.Cofactor(mat,0, 0), Is.EqualTo(-12));
+        Assert.That(Matrix.Cofactor(mat,1, 0), Is.EqualTo(-25));
+    }
+
+    [Test]
+    public void Determinant3x3()
+    {
+        Matrix mat = new Matrix(3, 3, "1 2 6 -5 8 -4 2 6 4");
+    }
 }
