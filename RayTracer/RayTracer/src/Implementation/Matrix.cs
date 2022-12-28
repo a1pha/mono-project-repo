@@ -141,11 +141,23 @@ public class Matrix
     
     public double Determinant()
     {
-        if (Rows != Cols && Rows != 2)
+        if (Rows != Cols)
         {
-            throw new InvalidOperationException("Cannot calculate determinant of non 2x2 matrix.");
+            throw new InvalidOperationException("Cannot calculate determinant of non square matrix.");
         }
-        return (Array[0, 0] * Array[1, 1]) - (Array[0, 1] * Array[1, 0]);
+        else if (Rows == 2)
+        {
+            return (Array[0, 0] * Array[1, 1]) - (Array[0, 1] * Array[1, 0]);
+        }
+        else
+        {
+            double det = 0;
+            for (int i = 0; i < Rows; i++)
+            {
+                det += Array[i, 0] * Cofactor(i, 0);
+            }
+            return det;
+        }
     }
 
     public Matrix Submatrix(long row, long col)
@@ -176,5 +188,4 @@ public class Matrix
     {
         return Minor(row, col) * (((row+col)%2==0) ? 1 : -1);
     }
-
 }

@@ -246,5 +246,20 @@ public class MatrixTests
     public void Determinant3x3()
     {
         Matrix mat = new Matrix(3, 3, "1 2 6 -5 8 -4 2 6 4");
+        Assert.That(mat.Cofactor(0,0), Is.EqualTo(56));
+        Assert.That(mat.Cofactor(0,1), Is.EqualTo(12));
+        Assert.That(mat.Cofactor(0,2), Is.EqualTo(-46));
+        Assert.That(mat.Determinant(), Is.EqualTo(-196));
+    }
+    
+    [Test]
+    public void Determinant4x4()
+    {
+        Matrix mat = new Matrix(4, 4, "-2 -8 3 5 -3 1 7 3 1 2 -9 6 -6 7 7 -9");
+        Assert.That(mat.Cofactor(0,0), Is.EqualTo(690));
+        Assert.That(mat.Cofactor(0,1), Is.EqualTo(447));
+        Assert.That(mat.Cofactor(0,2), Is.EqualTo(210));
+        Assert.That(mat.Cofactor(0,3), Is.EqualTo(51));
+        Assert.That(mat.Determinant(), Is.EqualTo(-4071));
     }
 }
