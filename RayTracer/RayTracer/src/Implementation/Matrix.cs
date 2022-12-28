@@ -148,33 +148,33 @@ public class Matrix
         return (Array[0, 0] * Array[1, 1]) - (Array[0, 1] * Array[1, 0]);
     }
 
-    public static Matrix Submatrix(Matrix A, long row, long col)
+    public Matrix Submatrix(long row, long col)
     {
-        Matrix cofactor = new Matrix(A.Rows - 1, A.Cols - 1);
-        for (long i = 0; i < A.Rows; i++)
+        Matrix cofactor = new Matrix(Rows - 1, Cols - 1);
+        for (long i = 0; i < Rows; i++)
         {
             if (i == row) continue;
-            for (long j = 0; j < A.Cols; j++)
+            for (long j = 0; j < Cols; j++)
             {
                 if (j == col) continue;
                 
                 long cofactorRow = i < row ? i : i - 1;
                 long cofactorCol = j < col ? j : j - 1;
                 
-                cofactor.Array[cofactorRow, cofactorCol] = A.Array[i, j];
+                cofactor.Array[cofactorRow, cofactorCol] = Array[i, j];
             }
         }
         return cofactor;
     }
 
-    public static double Minor(Matrix A, long row, long col)
+    public double Minor(long row, long col)
     {
-        return Submatrix(A, row, col).Determinant();
+        return Submatrix(row, col).Determinant();
     }
     
-    public static double Cofactor(Matrix A, long row, long col)
+    public double Cofactor(long row, long col)
     {
-        return Minor(A, row, col) * (((row+col)%2==0) ? 1 : -1);
+        return Minor(row, col) * (((row+col)%2==0) ? 1 : -1);
     }
 
 }

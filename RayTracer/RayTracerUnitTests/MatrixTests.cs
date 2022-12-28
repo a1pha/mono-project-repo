@@ -210,7 +210,8 @@ public class MatrixTests
     [Test]
     public void Submatrix3x3Test1()
     {
-        Matrix submatrix = Matrix.Submatrix(Matrix.IdentityMatrix(3), 0, 0);
+        Matrix identity = Matrix.IdentityMatrix(3);
+        Matrix submatrix = identity.Submatrix( 0, 0);
         Matrix expected = new Matrix(2, 2, "1 0 0 1");
         Assert.That(submatrix, Is.EqualTo(expected));
     }
@@ -218,7 +219,8 @@ public class MatrixTests
     [Test]
     public void Submatrix3x3Test2()
     {
-        Matrix submatrix = Matrix.Submatrix(Matrix.IdentityMatrix(3), 1, 1);
+        Matrix identity = Matrix.IdentityMatrix(3);
+        Matrix submatrix = identity.Submatrix( 1, 1);
         Matrix expected = new Matrix(2, 2, "1 0 0 1");
         Assert.That(submatrix, Is.EqualTo(expected));
     }
@@ -227,15 +229,17 @@ public class MatrixTests
     public void Minor3x3()
     {
         Matrix mat = new Matrix(3, 3, "3 5 0 2 -1 -7 6 -1 5");
-        Assert.That(Matrix.Minor(mat,1, 0), Is.EqualTo(25));
+        Assert.That(mat.Minor(1, 0), Is.EqualTo(25));
     }
     
     [Test]
     public void Cofactor3x3()
     {
         Matrix mat = new Matrix(3, 3, "3 5 0 2 -1 -7 6 -1 5");
-        Assert.That(Matrix.Cofactor(mat,0, 0), Is.EqualTo(-12));
-        Assert.That(Matrix.Cofactor(mat,1, 0), Is.EqualTo(-25));
+        Assert.That(mat.Minor(0, 0), Is.EqualTo(-12));
+        Assert.That(mat.Cofactor(0, 0), Is.EqualTo(-12));
+        Assert.That(mat.Minor(1, 0), Is.EqualTo(25));
+        Assert.That(mat.Cofactor(1, 0), Is.EqualTo(-25));
     }
 
     [Test]
