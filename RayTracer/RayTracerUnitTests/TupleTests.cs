@@ -186,35 +186,35 @@ public class TupleTests
     public void Magnitude1()
     {
         Tuple i = Tuple.vector(1,0,0);
-        Assert.That(1, Is.EqualTo(i.Magnitude()));
+        Assert.That(i.Magnitude(), Is.EqualTo(1));
     }
     
     [Test] 
     public void Magnitude2()
     {
         Tuple j = Tuple.vector(0,1,0);
-        Assert.That(1, Is.EqualTo(j.Magnitude()));
+        Assert.That(j.Magnitude(), Is.EqualTo(1));
     }
     
     [Test] 
     public void Magnitude3()
     {
         Tuple k = Tuple.vector(0,0,1);
-        Assert.That(1, Is.EqualTo(k.Magnitude()));
+        Assert.That(k.Magnitude(), Is.EqualTo(1));
     }
     
     [Test] 
     public void Magnitude4()
     {
         Tuple pos = Tuple.vector(1,2,3);
-        Assert.That(Double.Sqrt(14), Is.EqualTo(pos.Magnitude()));
+        Assert.That(pos.Magnitude(), Is.EqualTo(Double.Sqrt(14)));
     }
     
     [Test] 
     public void Magnitude5()
     {
         Tuple neg = Tuple.vector(-1,-2,-3);
-        Assert.That(Double.Sqrt(14), Is.EqualTo(neg.Magnitude()));
+        Assert.That(neg.Magnitude(), Is.EqualTo(Double.Sqrt(14)));
     }
     
     [Test] 
@@ -238,7 +238,7 @@ public class TupleTests
     {
         Tuple orig = Tuple.vector(1,2,3);
         Tuple norm = orig.Normalize();
-        Assert.That(1, Is.EqualTo(norm.Magnitude()));
+        Assert.That(norm.Magnitude(), Is.EqualTo(1));
     }
     
     [Test] 
@@ -246,7 +246,7 @@ public class TupleTests
     {
         Tuple a = Tuple.vector(1,2,3);
         Tuple b = Tuple.vector(2,3,4);
-        Assert.That(20, Is.EqualTo(Tuple.DotProduct(a, b)));
+        Assert.That(Tuple.DotProduct(a, b), Is.EqualTo(20));
     }
     
     [Test] 

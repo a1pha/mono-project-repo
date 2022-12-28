@@ -199,4 +199,11 @@ public class MatrixTests
     {
         Assert.That(Matrix.IdentityMatrix(4).Transpose(), Is.EqualTo(Matrix.IdentityMatrix(4)));
     }
+
+    [Test]
+    public void Determinant2x2()
+    {
+        Matrix mat = new Matrix(2, 2, "1 2 3 4");
+        Assert.That(mat.Determinant, Is.EqualTo(-2));
+    }
 }
