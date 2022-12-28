@@ -116,7 +116,7 @@ public class Matrix
         return tupresult;
     }
 
-    public static Matrix identityMatrix(long rank)
+    public static Matrix IdentityMatrix(long rank)
     {
         Matrix mat = new Matrix(rank, rank);
         for (int i = 0; i < rank; i++)
@@ -124,6 +124,19 @@ public class Matrix
             mat.Array[i, i] = 1;
         }
         return mat;
+    }
+
+    public Matrix Transpose()
+    {
+        Matrix transpose = new Matrix(Cols, Rows);
+        for (int j = 0; j < Rows; j++)
+        {
+            for (int i = 0; i < Cols; i++)
+            {
+                transpose[i, j] = Array[j, i];
+            }
+        }
+        return transpose;
     }
 
 }

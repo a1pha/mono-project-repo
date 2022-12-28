@@ -171,10 +171,32 @@ public class MatrixTests
     }
 
     [Test]
+    public void Identity()
+    {
+        Matrix mat = Matrix.IdentityMatrix(4);
+        Matrix exp = new Matrix(4, 4, "1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1");
+        Assert.That(mat, Is.EqualTo(exp));
+    }
+
+    [Test]
     public void MultiplyByIdentity()
     {
         Matrix mat = new Matrix(4, 4, "1 2 3 4 2 4 4 2 8 6 4 1 0 0 0 1");
-        Matrix identity = Matrix.identityMatrix(4);
+        Matrix identity = Matrix.IdentityMatrix(4);
         Assert.That(mat*identity, Is.EqualTo(mat));
+    }
+
+    [Test]
+    public void Transpose()
+    {
+        Matrix mat = new Matrix(4, 4, "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16");
+        Matrix expected = new Matrix(4, 4, "1 5 9 13 2 6 10 14 3 7 11 15 4 8 12 16");
+        Assert.That(mat.Transpose(), Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void TransposeIdentity()
+    {
+        Assert.That(Matrix.IdentityMatrix(4).Transpose(), Is.EqualTo(Matrix.IdentityMatrix(4)));
     }
 }
