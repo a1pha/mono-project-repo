@@ -1,5 +1,6 @@
 .DS_Store
 *.dll
+ray-tracer/.vscode
 ray-tracer/RayTracer/.idea/
 ray-tracer/RayTracer/bin/
 ray-tracer/RayTracer/obj/
