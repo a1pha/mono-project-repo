@@ -1,0 +1,140 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/abhijadhav/dev/ray-tracing/ray-tracer/RayTracer.Tests/RayTracer.Tests.csproj": {}
+  },
+  "projects": {
+    "/home/abhijadhav/dev/ray-tracing/ray-tracer/RayTracer.Tests/RayTracer.Tests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/abhijadhav/dev/ray-tracing/ray-tracer/RayTracer.Tests/RayTracer.Tests.csproj",
+        "projectName": "RayTracer.Tests",
+        "projectPath": "/home/abhijadhav/dev/ray-tracing/ray-tracer/RayTracer.Tests/RayTracer.Tests.csproj",
+        "packagesPath": "/home/abhijadhav/.nuget/packages/",
+        "outputPath": "/home/abhijadhav/dev/ray-tracing/ray-tracer/RayTracer.Tests/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/abhijadhav/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/abhijadhav/dev/ray-tracing/ray-tracer/RayTracer/RayTracer.csproj": {
+                "projectPath": "/home/abhijadhav/dev/ray-tracing/ray-tracer/RayTracer/RayTracer.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.6.0, )"
+            },
+            "NUnit": {
+              "target": "Package",
+              "version": "[3.13.3, )"
+            },
+            "NUnit.Analyzers": {
+              "target": "Package",
+              "version": "[3.6.1, )"
+            },
+            "NUnit3TestAdapter": {
+              "target": "Package",
+              "version": "[4.2.1, )"
+            },
+            "coverlet.collector": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/abhijadhav/dev/ray-tracing/ray-tracer/RayTracer/RayTracer.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/abhijadhav/dev/ray-tracing/ray-tracer/RayTracer/RayTracer.csproj",
+        "projectName": "RayTracer",
+        "projectPath": "/home/abhijadhav/dev/ray-tracing/ray-tracer/RayTracer/RayTracer.csproj",
+        "packagesPath": "/home/abhijadhav/.nuget/packages/",
+        "outputPath": "/home/abhijadhav/dev/ray-tracing/ray-tracer/RayTracer/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/abhijadhav/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

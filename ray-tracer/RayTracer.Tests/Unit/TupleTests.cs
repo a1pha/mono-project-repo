@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using Tuple = RayTracer.Implementation.Tuple;
 
-namespace RayTracerUnitTests;
+namespace RayTracer.Tests.Unit;
 
 [TestFixture]
 public class TupleTests

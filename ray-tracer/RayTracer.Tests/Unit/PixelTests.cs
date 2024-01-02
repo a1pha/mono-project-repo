@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using RayTracer.Implementation;
 
-namespace RayTracerUnitTests;
+namespace RayTracer.Tests.Unit;
 
 [TestFixture]
 public class PixelTests

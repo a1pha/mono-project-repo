@@ -2,7 +2,7 @@ using NUnit.Framework;
 using RayTracer.Implementation;
 using Tuple = RayTracer.Implementation.Tuple;
 
-namespace RayTracerUnitTests;
+namespace RayTracer.Tests.Unit;
 
 [TestFixture]
 public class ColorTests

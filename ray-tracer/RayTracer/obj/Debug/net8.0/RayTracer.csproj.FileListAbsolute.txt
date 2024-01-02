@@ -1,0 +1,12 @@
+/home/abhijadhav/dev/ray-tracing/ray-tracer/RayTracer/bin/Debug/net8.0/RayTracer.deps.json
+/home/abhijadhav/dev/ray-tracing/ray-tracer/RayTracer/bin/Debug/net8.0/RayTracer.dll
+/home/abhijadhav/dev/ray-tracing/ray-tracer/RayTracer/bin/Debug/net8.0/RayTracer.pdb
+/home/abhijadhav/dev/ray-tracing/ray-tracer/RayTracer/obj/Debug/net8.0/RayTracer.GeneratedMSBuildEditorConfig.editorconfig
+/home/abhijadhav/dev/ray-tracing/ray-tracer/RayTracer/obj/Debug/net8.0/RayTracer.AssemblyInfoInputs.cache
+/home/abhijadhav/dev/ray-tracing/ray-tracer/RayTracer/obj/Debug/net8.0/RayTracer.AssemblyInfo.cs
+/home/abhijadhav/dev/ray-tracing/ray-tracer/RayTracer/obj/Debug/net8.0/RayTracer.csproj.CoreCompileInputs.cache
+/home/abhijadhav/dev/ray-tracing/ray-tracer/RayTracer/obj/Debug/net8.0/RayTracer.sourcelink.json
+/home/abhijadhav/dev/ray-tracing/ray-tracer/RayTracer/obj/Debug/net8.0/RayTracer.dll
+/home/abhijadhav/dev/ray-tracing/ray-tracer/RayTracer/obj/Debug/net8.0/refint/RayTracer.dll
+/home/abhijadhav/dev/ray-tracing/ray-tracer/RayTracer/obj/Debug/net8.0/RayTracer.pdb
+/home/abhijadhav/dev/ray-tracing/ray-tracer/RayTracer/obj/Debug/net8.0/ref/RayTracer.dll
