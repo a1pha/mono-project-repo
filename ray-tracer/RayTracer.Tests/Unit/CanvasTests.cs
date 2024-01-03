@@ -114,7 +114,6 @@ public class CanvasTests
             String actual = reader.ReadToEnd();
             string[] lines = actual.Split('\n');
             string output = string.Join("\n", lines[3..7]);
-            Console.Write(output);
             Assert.That(output, Is.EqualTo(expected));
         }
     }
