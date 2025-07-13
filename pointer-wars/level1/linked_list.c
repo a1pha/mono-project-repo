@@ -14,9 +14,12 @@ static void   (*free_fptr)(void* addr)    = NULL;
 // Returns a new linked_list on success, NULL on failure.
 //
 struct linked_list * linked_list_create(void) {
-    (void)malloc_fptr;
-    (void)free_fptr;
-    return NULL;
+    struct linked_list * created_list = malloc_fptr(sizeof(struct linked_list));
+    if (created_list == NULL) {
+        return NULL;
+    }
+    created_list->head = NULL;
+    return created_list;
 }
 
 // Deletes a linked_list and frees all memory assoicated with it.
@@ -24,9 +27,19 @@ struct linked_list * linked_list_create(void) {
 // Returns TRUE on success, FALSE otherwise.
 //
 bool linked_list_delete(struct linked_list * ll) {
-    (void)ll;
-    (void)free_fptr;
-    return false;
+    if (ll == NULL) {
+        return false;
+    }
+
+    struct node * current = ll->head;
+    while (current != NULL) {
+        struct node * next = current->next;
+        free_fptr(current);
+        current = next;
+    }
+
+    free_fptr(ll);
+    return true;
 }
 
 // Returns the size of a linked_list.
@@ -34,8 +47,16 @@ bool linked_list_delete(struct linked_list * ll) {
 // Returns size on success, SIZE_MAX on failure.
 //
 size_t linked_list_size(struct linked_list * ll) {
-    (void)ll;
-    return SIZE_MAX;
+    if (ll == NULL) {
+        return SIZE_MAX;
+    }
+    size_t size = 0;
+    struct node * current = ll->head;
+    while (current != NULL) {
+        size++;
+        current = current->next;
+    }
+    return size;
 }
 
 // Inserts an element at the end of the linked_list.
@@ -45,10 +66,30 @@ size_t linked_list_size(struct linked_list * ll) {
 //
 bool linked_list_insert_end(struct linked_list * ll,
                             unsigned int data) {
-    (void)ll;
-    (void)data;
-    (void)malloc_fptr;
-    return false;
+    if (ll == NULL) {
+        return false;
+    }
+
+    struct node * new_node = malloc_fptr(sizeof(struct node));
+    if (new_node == NULL) {
+        return false;
+    }
+    new_node->data = data;
+    new_node->next = NULL;
+
+    struct node * current = ll->head;
+
+    if (current == NULL) {
+        ll->head = new_node;
+        return true;
+    }
+
+    while (current->next != NULL) {
+        current = current->next;
+    }
+
+    current->next = new_node;
+    return true;
 }
 
 // Inserts an element at the front of the linked_list.
@@ -58,10 +99,18 @@ bool linked_list_insert_end(struct linked_list * ll,
 //
 bool linked_list_insert_front(struct linked_list * ll,
                               unsigned int data) {
-    (void)ll;
-    (void)data;
-    (void)malloc_fptr;
-    return false;
+    if (ll == NULL) {
+        return false;
+    }
+
+    struct node * new_node = malloc_fptr(sizeof(struct node));
+    if (new_node == NULL) {
+        return false;
+    }
+    new_node->data = data;
+    new_node->next = ll->head;
+    ll->head = new_node;
+    return true;
 }
 
 // Inserts an element at a specified index in the linked_list.
@@ -73,11 +122,37 @@ bool linked_list_insert_front(struct linked_list * ll,
 bool linked_list_insert(struct linked_list * ll,
                         size_t index,
                         unsigned int data) {
-    (void)ll;
-    (void)index;
-    (void)data;
-    (void)malloc_fptr;
-    return false;
+
+    if (ll == NULL) {
+        return false;
+    }
+
+    if (index == 0) {
+        return linked_list_insert_front(ll, data);
+    }
+
+    struct node * current = ll->head;
+    if (current == NULL) {
+        return false;
+    }
+
+    for (size_t i = 0; i < index - 1; ++i) {
+        if (current == NULL) {
+            return false;
+        }
+        current = current->next;
+    }
+
+    struct node * new_node = malloc_fptr(sizeof(struct node));
+    if (new_node == NULL) {
+        return false;
+    }
+
+    new_node->data = data;
+    new_node->next = current->next;
+    current->next = new_node;
+
+    return true;
 }
 
 // Finds the first occurrence of data and returns its index.
@@ -87,8 +162,19 @@ bool linked_list_insert(struct linked_list * ll,
 //
 size_t linked_list_find(struct linked_list * ll,
                         unsigned int data) {
-    (void)ll;
-    (void)data;
+    if (ll == NULL || ll->head == NULL) {
+        return SIZE_MAX;
+    }
+
+    struct node * current = ll->head;
+    size_t index = 0;
+    while (current != NULL) {
+        if (current->data == data) {
+            return index;
+        }
+        current = current->next;
+        ++index;
+    }
     return SIZE_MAX;
 }
 
@@ -99,10 +185,32 @@ size_t linked_list_find(struct linked_list * ll,
 //
 bool linked_list_remove(struct linked_list * ll,
                         size_t index) {
-    (void)ll;
-    (void)index;
-    (void)free_fptr;
-    return false;
+    if (ll == NULL || ll->head == NULL) {
+        return false;
+    }
+
+    struct node * current = ll->head;
+    if (index == 0) {
+        ll->head = current->next;
+        free_fptr(current);
+        return true;
+    }
+
+    for (size_t i = 0; i < index - 1; ++i) {
+        if (current == NULL) {
+            return false;
+        }
+        current = current->next;
+    }
+
+    struct node * nodeToDelete = current->next;
+    if (nodeToDelete == NULL){
+        return false;
+    }
+
+    current->next = nodeToDelete->next;
+    free_fptr(nodeToDelete);
+    return true;
 }
 
 // Creates an iterator struct at a particular index.
@@ -112,10 +220,23 @@ bool linked_list_remove(struct linked_list * ll,
 //
 struct iterator * linked_list_create_iterator(struct linked_list * ll,
                                               size_t index) {
-    (void)ll;
-    (void)index;
-    (void)malloc_fptr;
-    return NULL;
+    if (ll == NULL || ll->head == NULL){
+        return NULL;
+    }
+
+    struct node * current = ll->head;
+    for (size_t i = 0; i < index; ++i) {
+        if (current == NULL) {
+            return NULL;
+        }
+        current = current->next;
+    }
+    struct iterator * iter = malloc_fptr(sizeof(struct iterator));
+    iter->ll = ll;
+    iter->current_node = current;
+    iter->current_index = index;
+    iter->data = current->data;
+    return iter;
 }
 
 // Deletes an iterator struct.
@@ -123,9 +244,11 @@ struct iterator * linked_list_create_iterator(struct linked_list * ll,
 // Returns TRUE on success, FALSE otherwise.
 //
 bool linked_list_delete_iterator(struct iterator * iter) {
-    (void)iter;
-    (void)free_fptr;
-    return false;
+    if (iter == NULL){
+        return false;
+    }
+    free_fptr(iter);
+    return true;
 }
 
 // Iterates to the next node in the linked_list.
@@ -133,8 +256,18 @@ bool linked_list_delete_iterator(struct iterator * iter) {
 // Returns TRUE when next node is present, FALSE once end of list is reached.
 //
 bool linked_list_iterate(struct iterator * iter) {
-    (void)iter;
-    return false;
+    if (iter == NULL){
+        return false;
+    }
+
+    if (iter->current_node->next == NULL){
+        return false;
+    }
+    
+    iter->current_node = iter->current_node->next;
+    ++iter->current_index;
+    iter->data = iter->current_node->data;
+    return true;
 }
 
 // Registers malloc() function.
@@ -142,8 +275,11 @@ bool linked_list_iterate(struct iterator * iter) {
 // Returns TRUE on success, FALSE otherwise.
 //
 bool linked_list_register_malloc(void * (*malloc)(size_t)) {
-    (void)malloc;
-    return false;
+    if (malloc == NULL) {
+        return false;
+    }
+    malloc_fptr = malloc;
+    return true;
 }
 
 // Registers free() function.
@@ -151,6 +287,9 @@ bool linked_list_register_malloc(void * (*malloc)(size_t)) {
 // Returns TRUE on success, FALSE otherwise.
 //
 bool linked_list_register_free(void (*free)(void*)) {
-    (void)free;
-    return false;
+    if (free == NULL) {
+        return false;
+    }
+    free_fptr = free;
+    return true;
 }
