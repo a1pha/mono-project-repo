@@ -19,6 +19,8 @@ struct linked_list * linked_list_create(void) {
         return NULL;
     }
     created_list->head = NULL;
+    created_list->tail = NULL;
+    created_list->size = 0;
     return created_list;
 }
 
@@ -47,16 +49,7 @@ bool linked_list_delete(struct linked_list * ll) {
 // Returns size on success, SIZE_MAX on failure.
 //
 size_t linked_list_size(struct linked_list * ll) {
-    if (ll == NULL) {
-        return SIZE_MAX;
-    }
-    size_t size = 0;
-    struct node * current = ll->head;
-    while (current != NULL) {
-        size++;
-        current = current->next;
-    }
-    return size;
+    return (ll != NULL) ? ll->size : SIZE_MAX;
 }
 
 // Inserts an element at the end of the linked_list.
@@ -77,18 +70,16 @@ bool linked_list_insert_end(struct linked_list * ll,
     new_node->data = data;
     new_node->next = NULL;
 
-    struct node * current = ll->head;
-
-    if (current == NULL) {
+    if (ll->head == NULL) {
         ll->head = new_node;
+        ll->tail = new_node;
+        ++ll->size;
         return true;
     }
 
-    while (current->next != NULL) {
-        current = current->next;
-    }
-
-    current->next = new_node;
+    ll->tail->next = new_node;
+    ll->tail = new_node;
+    ++ll->size;
     return true;
 }
 
@@ -109,7 +100,11 @@ bool linked_list_insert_front(struct linked_list * ll,
     }
     new_node->data = data;
     new_node->next = ll->head;
+    if (ll->head == NULL) {
+        ll->tail = new_node;
+    }
     ll->head = new_node;
+    ++ll->size;
     return true;
 }
 
@@ -151,6 +146,10 @@ bool linked_list_insert(struct linked_list * ll,
     new_node->data = data;
     new_node->next = current->next;
     current->next = new_node;
+    if (new_node->next == NULL) {
+        ll->tail = new_node;
+    }
+    ++ll->size;
 
     return true;
 }
